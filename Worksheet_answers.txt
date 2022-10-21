@@ -1,0 +1,39 @@
+1. SELECT * FROM sakila.actor;
+2. SELECT * FROM sakila.actor WHERE first_name = 'John';
+3. SELECT * FROM sakila.actor WHERE last_name = 'Neeson';
+4. SELECT * FROM sakila.actor WHERE actor_id LIKE '%0';
+5. SELECT description FROM sakila.film WHERE film_id = 100;
+6. SELECT * FROM sakila.film WHERE rating LIKE 'r';
+7. SELECT * FROM sakila.film WHERE rating! = 'r';
+8. SELECT * FROM sakila.film WHERE special_features LIKE '%Deleted Scenes%';
+9. 
+SELECT * FROM sakila.actor 
+WHERE last_name in
+(
+SELECT last_name
+FROM sakila.actor
+GROUP BY last_name
+HAVING Count(*)=1
+);
+
+10.
+SELECT * FROM sakila.actor 
+WHERE last_name in
+(
+SELECT last_name
+FROM sakila.actor
+GROUP BY last_name
+HAVING Count(*)>1
+);
+
+11.
+SELECT a.first_name, a.last_name
+FROM sakila.actor a
+ORDER BY (SELECT COUNT(*) FROM sakila.film_actor fa where fa.actor_id= a.actor_id) DESC;
+
+
+13.SELECT AVG(length) FROM sakila.film;
+
+15. SELECT * FROM sakila.film WHERE Description LIKE '%robot%';
+16.SELECT title FROM sakila.film
+WHERE length = ( SELECT MAX(length) FROM sakila.film);
